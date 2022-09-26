@@ -14,7 +14,7 @@ import java.text.NumberFormat;
 import java.util.InputMismatchException;
 import java.util.Locale;
 
-public class BlackjackController extends Exception{
+public class BlackjackController {
 
     BlackjackGame game = new BlackjackGame();
     private final double minBet = 5;
