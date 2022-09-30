@@ -6,27 +6,36 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0" prefWidth="439.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mypackage.yj_tp3.BlackjackController">
-   <children>
-      <Label layoutX="13.0" layoutY="24.0" text="Money:" />
-      <TextField fx:id="tfMoney" editable="false" layoutX="62.0" layoutY="20.0" mouseTransparent="true" focusTraversable="false"/>
-      <Label layoutX="13.0" layoutY="60.0" text="Bet:" />
-      <TextField fx:id="tfBet" layoutX="62.0" layoutY="56.0" onKeyReleased="#placeBet" />
-      <Label layoutX="13.0" layoutY="96.0" text="DEALER" />
-      <Label layoutX="13.0" layoutY="121.0" text="Cards:" />
-      <TextArea fx:id="tfDealerCards" editable="false" layoutX="62.0" layoutY="125.0" prefHeight="76.0" prefWidth="365.0" mouseTransparent="true" focusTraversable="false" />
-      <Label layoutX="13.0" layoutY="235.0" text="Points:" />
-      <TextField fx:id="tfDealerPoints" editable="false" layoutX="62.0" layoutY="231.0" mouseTransparent="true" focusTraversable="false" />
-      <Label layoutX="13.0" layoutY="267.0" text="YOU" />
-      <Label layoutX="13.0" layoutY="291.0" text="Cards:" />
-      <TextArea fx:id="tfPlayerCards" editable="false" layoutX="62.0" layoutY="294.0" prefHeight="76.0" prefWidth="366.0" mouseTransparent="true" focusTraversable="false" />
-      <Label layoutX="13.0" layoutY="405.0" text="Points:" />
-      <TextField fx:id="tfPlayerPoints" editable="false" layoutX="62.0" layoutY="401.0" mouseTransparent="true" focusTraversable="false" />
-      <Button fx:id="btnHit" layoutX="13.0" layoutY="444.0" mnemonicParsing="false" onAction="#btnHitClicked" text="Hit" />
-      <Button fx:id="btnStand" layoutX="52.0" layoutY="444.0" mnemonicParsing="false" onAction="#btnStandClicked" text="Stand" />
-      <Label layoutX="13.0" layoutY="490.0" text="RESULT:" />
-      <TextField fx:id="tfResult" editable="false" layoutX="62.0" layoutY="487.0" mouseTransparent="true" focusTraversable="false" />
-      <Button fx:id="btnPlay" layoutX="13.0" layoutY="527.0" mnemonicParsing="false" onAction="#btnPlayClicked" text="Play"  />
-      <Button fx:id="btnExit" layoutX="58.0" layoutY="527.0" mnemonicParsing="false" onAction="#btnExitClicked" text="Exit" />
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="566.0"
+            prefWidth="439.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="mypackage.yj_tp3.BlackjackController">
+   <Label layoutX="13.0" layoutY="24.0" text="Money:"/>
+   <TextField fx:id="tfMoney" editable="false" layoutX="62.0" layoutY="20.0" mouseTransparent="true"
+              focusTraversable="false"/>
+   <Label layoutX="13.0" layoutY="60.0" text="Bet:"/>
+   <TextField fx:id="tfBet" layoutX="62.0" layoutY="56.0" onKeyReleased="#placeBet" style="-fx-opacity:1.0"/> <!-- Fonction placeBet() onKeyReleased-->
+   <Label layoutX="13.0" layoutY="96.0" text="DEALER"/>
+   <Label layoutX="13.0" layoutY="121.0" text="Cards:"/>
+   <TextArea fx:id="tfDealerCards" editable="false" layoutX="62.0" layoutY="125.0" prefHeight="76.0" prefWidth="365.0"
+             mouseTransparent="true" focusTraversable="false"/>
+   <Label layoutX="13.0" layoutY="235.0" text="Points:"/>
+   <TextField fx:id="tfDealerPoints" editable="false" layoutX="62.0" layoutY="231.0" mouseTransparent="true"
+              focusTraversable="false"/>
+   <Label layoutX="13.0" layoutY="267.0" text="YOU"/>
+   <Label layoutX="13.0" layoutY="291.0" text="Cards:"/>
+   <TextArea fx:id="tfPlayerCards" editable="false" layoutX="62.0" layoutY="294.0" prefHeight="76.0" prefWidth="366.0"
+             mouseTransparent="true" focusTraversable="false"/>
+   <Label layoutX="13.0" layoutY="405.0" text="Points:"/>
+   <TextField fx:id="tfPlayerPoints" editable="false" layoutX="62.0" layoutY="401.0" mouseTransparent="true"
+              focusTraversable="false"/>
+   <Button fx:id="btnHit" layoutX="13.0" layoutY="444.0" mnemonicParsing="false" onAction="#btnHitClicked" text="Hit" style="-fx-focus-color:green;"/>
+   <Button fx:id="btnStand" layoutX="52.0" layoutY="444.0" mnemonicParsing="false" onAction="#btnStandClicked"
+           text="Stand" style="-fx-focus-color:red" />
+   <Label layoutX="13.0" layoutY="490.0" text="RESULT:"/>
+   <TextField fx:id="tfResult" editable="false" layoutX="62.0" layoutY="487.0" mouseTransparent="true"
+              focusTraversable="false"/>
+   <Button fx:id="btnPlay" layoutX="13.0" layoutY="527.0" mnemonicParsing="false" onAction="#btnPlayClicked"
+           text="Play" style="-fx-focus-color:green" />
+   <Button fx:id="btnExit" layoutX="58.0" layoutY="527.0" mnemonicParsing="false" onAction="#btnExitClicked"
+           text="Exit" style="-fx-focus-color:red" />
 </AnchorPane>

@@ -10,16 +10,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.nio.charset.MalformedInputException;
+import java.security.DrbgParameters;
 import java.text.NumberFormat;
 import java.util.InputMismatchException;
 import java.util.Locale;
 
 public class BlackjackController {
 
+    // Instantiation of the blackjack game
     BlackjackGame game = new BlackjackGame();
-    private final double minBet = 5;
-    private final double  maxBet = 1000;
 
+    // JFX attributes
     @FXML
     private Button btnExit,btnHit,btnPlay,btnStand;
     @FXML
@@ -28,6 +29,7 @@ public class BlackjackController {
     private TextArea tfDealerCards, tfPlayerCards;
 
 
+    // JFX events
     @FXML
     void btnExitClicked(ActionEvent event) {
         Platform.exit();
@@ -45,14 +47,7 @@ public class BlackjackController {
 
     @FXML
     void btnPlayClicked(ActionEvent event) {
-        tfBet.setMouseTransparent(true);
-        tfBet.setFocusTraversable(false);
-        startNewGame();
-
-        if (!game.getPlayerHand().isBlackjack()){
-        releaseHitStand();
-        }
-        btnPlay.setDisable(true);
+        lunchPlayBtn();
     }
     @FXML
     void btnStandClicked(ActionEvent event) {
@@ -64,13 +59,13 @@ public class BlackjackController {
     // Set the table for the first game.
     public void initialize(){
         btnPlay.setDisable(true);
-        btnExit.setDisable(true);
         btnHit.setDisable(true);
         btnStand.setDisable(true);
         game.loadMoney();
         tfMoney.setText("" + formatNumber(game.getTotalMoney()));
     }
 
+    // Get the game started
     private void startNewGame(){
         game.getPlayerHand().throwCards();
         game.getDealerHand().throwCards();
@@ -85,6 +80,7 @@ public class BlackjackController {
         }
     }
 
+    // Manage the bet system
     public void placeBet() {
         // Convert the bet to double and check for exception
         String bet = tfBet.getText();
@@ -92,7 +88,7 @@ public class BlackjackController {
         clearTextbox();
         try {
           parseBet = Double.parseDouble(bet);
-          if (parseBet <  minBet || parseBet > maxBet){
+          if (parseBet <  game.getMinBet() || parseBet > game.getMaxBet()){
               throw new ArithmeticException();
           }
           if (parseBet > game.getTotalMoney()){
@@ -113,11 +109,11 @@ public class BlackjackController {
         }
 
         // Clear the text from the text box
-        if (bet.trim().isEmpty() || (parseBet < maxBet && parseBet > minBet && parseBet < game.getTotalMoney())) {
+        if (bet.trim().isEmpty() || (parseBet < game.getMaxBet() && parseBet > game.getMinBet() && parseBet < game.getTotalMoney())) {
             clearTextbox();
         }
         // Manage the Play button availability accordingly if the bet is valid or not.
-        boolean isDisable = bet.isEmpty() || bet.trim().isEmpty() || parseBet < 5 || parseBet > 1000 || parseBet > game.getTotalMoney() ;
+        boolean isDisable = bet.isEmpty() || bet.trim().isEmpty() || parseBet < game.getMinBet() || parseBet > game.getMaxBet() || parseBet > game.getTotalMoney() ;
         btnPlay.setDisable(isDisable);
 
         //Set the bet
@@ -125,13 +121,14 @@ public class BlackjackController {
 
         // When Play button is clicked we transform bet text into formated bet Local.CANADA
         double finalParseBet = parseBet;
-        btnPlay.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        btnPlay.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent mouseEvent) {
+            public void handle(ActionEvent event) {
                 tfBet.setText("" + formatNumber(finalParseBet));
                 if (game.getPlayerHand().isBlackjack()){
                     tfBet.setText("");
                 }
+                lunchPlayBtn();
             }
         });
     }
@@ -141,6 +138,20 @@ public class BlackjackController {
             btnHit.setDisable(false);
             btnStand.setDisable(false);
             btnExit.setDisable(true);
+    }
+
+
+    private void lunchPlayBtn(){
+        tfBet.setFocusTraversable(false);
+        startNewGame();
+
+        if (!game.getPlayerHand().isBlackjack()){
+            releaseHitStand();
+        }
+        btnPlay.setDisable(true);
+        if (!game.getPlayerHand().isBlackjack()) {
+            tfBet.setDisable(true); //Does not grey out because of style properties at line 16 in fxml file.
+        }
     }
 
 
@@ -183,6 +194,7 @@ public class BlackjackController {
 
     // Get the table ready for another round
     private void replay() {
+        tfBet.setDisable(false);
         btnExit.setDisable(false);
         btnPlay.setDisable(true);
         btnHit.setDisable(true);
@@ -206,8 +218,6 @@ public class BlackjackController {
         NumberFormat unformatedNumber = NumberFormat.getCurrencyInstance(Locale.CANADA);
         return unformatedNumber.format(number);
     }
-
-
 
 }
 
